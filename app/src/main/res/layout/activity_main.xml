@@ -7,12 +7,95 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/changa_one"
+        android:includeFontPadding="false"
+        android:text="Pizza Order"
+        android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgPizza"
+        android:layout_width="192dp"
+        android:layout_height="188dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toTopOf="@+id/textView3"
+        app:srcCompat="@drawable/plain" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/changa_one"
+        android:text="Select Pizza Type:"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/imgPizza"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="50dp"
+        android:baselineAligned="false"
+        android:onClick="pizzaTypeRadio"
+        app:layout_constraintEnd_toStartOf="@+id/imgPizza"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+        <RadioButton
+            android:id="@+id/bbq"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-15dp"
+            android:onClick="pizzaTypeRadio"
+            android:text="BBQ Chicken"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/margherita"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-15dp"
+            android:onClick="pizzaTypeRadio"
+            android:text="Margherita"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/hawaiian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-15dp"
+            android:onClick="pizzaTypeRadio"
+            android:text="Hawaiian"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/pepperoni"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="pizzaTypeRadio"
+            android:text="Pepperoni"
+            android:textSize="14sp" />
+    </RadioGroup>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="26dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
