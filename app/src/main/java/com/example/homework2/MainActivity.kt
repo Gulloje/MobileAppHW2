@@ -16,7 +16,8 @@ class MainActivity : AppCompatActivity() {
             R.id.bbq -> R.drawable.bbq_chicken
             R.id.margherita -> R.drawable.margheritta //figure out how to spell margherita later
             R.id.hawaiian -> R.drawable.hawaiian
-            else -> R.drawable.pepperoni
+            R.id.pepperoni -> R.drawable.pepperoni
+            else -> R.drawable.plain
         }
         findViewById<ImageView>(R.id.imgPizza).setImageResource(selectedPizzaImg);
     }
