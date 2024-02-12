@@ -7,6 +7,18 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="34dp"
+        android:fontFamily="@font/changa_one"
+        android:text="Subtotal:"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -104,7 +116,6 @@
         android:fontFamily="@font/changa_one"
         android:text="Select Size:"
         android:textSize="20sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
@@ -142,7 +153,6 @@
         android:fontFamily="@font/changa_one"
         android:text="Extra Toppings:"
         android:textSize="20sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinSize" />
 
@@ -152,8 +162,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:text="Tomatoes ($1)"
+        android:textSize="13sp"
         app:layout_constraintEnd_toStartOf="@+id/checkPeppers"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -161,7 +173,8 @@
         android:id="@+id/checkPeppers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Peppers ($2)"
+        android:text="Mushrooms ($2.30)"
+        android:textSize="13sp"
         app:layout_constraintEnd_toStartOf="@+id/checkSausage"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/checkTomate"
@@ -171,7 +184,8 @@
         android:id="@+id/checkSausage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sausage ($3)"
+        android:text="Olives ($1.70)"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/checkPeppers"
@@ -181,8 +195,8 @@
         android:id="@+id/checkOnion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
         android:text="Onions ($1.25)"
+        android:textSize="13sp"
         app:layout_constraintStart_toStartOf="@+id/checkTomate"
         app:layout_constraintTop_toBottomOf="@+id/checkTomate" />
 
@@ -190,7 +204,8 @@
         android:id="@+id/checkSpinach"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Spinach ($2)"
+        android:text="Broccoli ($1.80)"
+        android:textSize="13sp"
         app:layout_constraintStart_toEndOf="@+id/checkOnion"
         app:layout_constraintStart_toStartOf="@+id/checkPeppers"
         app:layout_constraintTop_toTopOf="@+id/checkOnion" />
@@ -199,7 +214,8 @@
         android:id="@+id/checkMeatball"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Meatball ($3)"
+        android:text="Spinach ($2)"
+        android:textSize="13sp"
         app:layout_constraintStart_toEndOf="@+id/checkSpinach"
         app:layout_constraintStart_toStartOf="@+id/checkSausage"
         app:layout_constraintTop_toTopOf="@+id/checkSpinach" />
@@ -213,7 +229,6 @@
         android:fontFamily="@font/changa_one"
         android:text="Extra Spicy:"
         android:textSize="20sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkOnion" />
 
@@ -255,11 +270,149 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/changa_one"
         android:text="Quantity:"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="631dp" />
+
+    <Button
+        android:id="@+id/btnPlus"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="130dp"
+        android:backgroundTint="#00AE1D"
+        android:text="+"
+        android:textSize="24sp"
+        app:iconPadding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnMinus" />
+
+    <Button
+        android:id="@+id/btnMinus"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="7dp"
+        android:backgroundTint="#CC0000"
+        android:text="-"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/textView8"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:text="1"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/btnMinus"
+        app:layout_constraintEnd_toStartOf="@+id/btnPlus"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnMinus"
+        app:layout_constraintTop_toTopOf="@+id/btnMinus" />
+
+    <TextView
+        android:id="@+id/textSubtotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:text="$0.00"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/textView10"
+        app:layout_constraintTop_toTopOf="@+id/textView10" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/changa_one"
+        android:text="Tax (6.35%):"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+    <TextView
+        android:id="@+id/textTax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$0.00"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/textSubtotal"
+        app:layout_constraintTop_toTopOf="@+id/textView11" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="156dp" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/changa_one"
+        android:text="Delivery Fee:"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No, $0.00"
+        app:layout_constraintStart_toStartOf="@+id/textTax"
+        app:layout_constraintTop_toTopOf="@+id/textView13" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/changa_one"
+        android:text="Total Price:"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+    <TextView
+        android:id="@+id/textTotalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$0.00"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/switch1"
+        app:layout_constraintTop_toTopOf="@+id/textView15" />
+
+    <Button
+        android:id="@+id/btnReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF9800"
+        android:text="Reset"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textTotalPrice"
+        app:layout_constraintTop_toTopOf="@+id/textTotalPrice" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
