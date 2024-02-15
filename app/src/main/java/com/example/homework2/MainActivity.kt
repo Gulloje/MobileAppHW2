@@ -123,8 +123,10 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         } else {
             spicyCost = 0.0
             spicy.text = "No, $0.00"
+            val seekBar = findViewById<SeekBar>(R.id.seekBar)
             findViewById<TextView>(R.id.textSpicyLevel).visibility = View.INVISIBLE
-            findViewById<SeekBar>(R.id.seekBar).visibility = View.INVISIBLE
+            seekBar.progress = 0
+            seekBar.visibility = View.INVISIBLE
         }
         if (delivery.isChecked) {
             deliveryCost = 2.0
@@ -156,28 +158,28 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         findViewById<ImageView>(R.id.imgPizza).setImageResource(R.drawable.plain)
         findViewById<Spinner>(R.id.spinSize).setSelection(0)
         val resetGroup = listOf(R.id.checkBroccoli, R.id.checkMushrooms, R.id.checkOlives, R.id.checkOnion, R.id.checkTomate, R.id.checkSpinach, R.id.switchDelivery, R.id.switchSpicy);
+        //for each id in the list
         resetGroup.forEach {id ->
-            val i = findViewById<View>(id)
-            if (i is CheckBox) {
+            val i = findViewById<View>(id) //find the associated widget
+            if (i is CheckBox) { //reset checkboxes
                 i.isChecked = false
-                //getCheckBoxes(i) would also reset price if added a max ( 0, toppingCost-getDollarAmount(view.text.toString(), just reset topping cost
+                //getCheckBoxes(i) would also reset price if added a max ( 0, toppingCost-getDollarAmount(view.text.toString(), or just reset topping cost
             } else if (i is Switch) {
-                i.isChecked = false
-                switches(i) //call this again so dont have to call visibility again
+                i.isChecked = false //reset switches
+
+                switches(i) //call this again so dont have to do visibility and text again
             }
 
         }
-
         findViewById<TextView>(R.id.textQuantity).text = 1.toString()
         updateCost()
     }
-    //send a string in and return a double value of the first dollar amount encountered in the string
+    //send a string in and return a double value of the first dollar amount encountered in the string, very specific for how dollar amount is formatted in the layout
     //https://kotlinandroid.org/kotlin/kotlin-iterate-over-words-in-string/#:~:text=To%20iterate%20over%20words%20in,to%20iterate%20over%20the%20words.
     private fun getDollarAmount(string: String): Double {
         try {
             var amount = string.split("$")
             amount = amount[1].split(")");
-
             //println(amount[0].toDouble());
             return amount[0].toDouble()
         } catch(e: IndexOutOfBoundsException) {
