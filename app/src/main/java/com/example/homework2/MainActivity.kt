@@ -5,17 +5,21 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.CheckBox
 import android.widget.ImageView
+import android.widget.SeekBar
 import android.widget.Spinner
 import android.widget.Switch
 import android.widget.TextView
-import android.widget.Toast
 import org.w3c.dom.Text
 import java.lang.IndexOutOfBoundsException
 
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
-    //var subTotal = 0.0;
-    lateinit var subTotal: TextView
+
+    var toppingCost = 0.0
+    var spicyCost = 0.0
+    var sizeCost = 0.0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -27,7 +31,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         val sizeSpinner = findViewById<Spinner>(R.id.spinSize)
         sizeSpinner.adapter = sizeAdapter
         sizeSpinner.onItemSelectedListener = this
-        subTotal = findViewById(R.id.textSubtotal)
 
     }
 
@@ -46,7 +49,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         val selectedSize = parent?.getItemAtPosition(position).toString()
 
-        val toAdd = when (position) {
+        sizeCost = when (position) {
             0 -> getDollarAmount(selectedSize)
             1 -> getDollarAmount(selectedSize)
             2 ->  getDollarAmount(selectedSize)
@@ -55,7 +58,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         }
         //findViewById<TextView>(R.id.textSubtotal).text = subTotal.toString();
         //findViewById<TextView>(R.id.textTax).text = (subTotal*.0635).toString();
-        updateCost(toAdd);
+        updateCost();
 
     }
 
@@ -63,43 +66,64 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         //not yet needed
     }
 
-    fun updateCost (priceToAdd: Double) {
-        var doubleTotal = getDollarAmount(subTotal.text.toString())
-        println(doubleTotal)
-
-        doubleTotal += priceToAdd
-        println(doubleTotal)
-        findViewById<TextView>(R.id.textSubtotal).text = "$${doubleTotal}" //prob need to format correctly
-
-        findViewById<TextView>(R.id.textTax).text = (doubleTotal*.065).toString();
-        //maybe put delivery fee switch here prob not thought because need to take in view
-        findViewById<TextView>(R.id.textTotalPrice).text = (doubleTotal + doubleTotal*.065).toString()
+    fun updateCost () {
+        val quantity = findViewById<TextView>(R.id.textQuantity).text.toString().toDouble()
+        var subTotal = (toppingCost + spicyCost+ sizeCost) * quantity
+        findViewById<TextView>(R.id.textSubtotal).text = "$" + String.format("%.2f", subTotal)
+        findViewById<TextView>(R.id.textTax).text = "$" + String.format("%.2f", subTotal*.065)
+        val deliveryFee = getDollarAmount(findViewById<Switch>(R.id.switchDelivery).text.toString())
+        println("delivery fee" + deliveryFee)
+        findViewById<TextView>(R.id.textTotalPrice).text = "$" + String.format("%.2f", subTotal + subTotal*.065 )
     }
 
 
     //https://stackoverflow.com/questions/10761942/how-to-declare-an-array-of-checkboxes-in-android
-    fun switches(view: View) {
-        val delivery = findViewById<Switch>(R.id.switchDelivery)
+
+    fun getCheckBoxes(view: View) {
+        if (view is CheckBox) {
+            val checked: Boolean = view.isChecked
+            when (view.id) {
+                R.id.checkBroccoli, R.id.checkMushrooms, R.id.checkOlives, R.id.checkOnion, R.id.checkTomate, R.id.checkSpinach -> { //https://www.baeldung.com/kotlin/when#:~:text=Kotlin's%20when%20expression%20allows%20us,acts%20as%20an%20OR%20operator.
+                    if (checked) {
+                        toppingCost += getDollarAmount(view.text.toString())  //https://stackoverflow.com/questions/24117079/get-text-of-selected-checkboxes-android
+                        println(toppingCost)
+                    } else {
+                        toppingCost -= getDollarAmount(view.text.toString())
+
+                    }
+                }
+
+            }
+        }
+        updateCost()
+    }
+
+    fun spicyHandler (view: View) {
+
         val spicy = findViewById<Switch>(R.id.switchSpicy)
-        var yesText = "Yes, $1.00"
-        var noText = "No, $0.00"
-        var total = 0.0;
-        if (delivery.isChecked) {
-            total +=2
-            yesText = "Yes, $2.00"
-            delivery.text = yesText
+        if (spicy.isChecked) {
+            spicyCost = 1.0
+            spicy.text = "Yes, $1.00"
+            findViewById<SeekBar>(R.id.seekBar).visibility = View.VISIBLE
+            findViewById<TextView>(R.id.textSpicyLevel).visibility = View.VISIBLE
         } else {
-            total -= 2
-            delivery.text = noText
+            spicyCost = 0.0
+            spicy.text = "No, $0.00"
+            findViewById<TextView>(R.id.textSpicyLevel).visibility = View.INVISIBLE
+            findViewById<SeekBar>(R.id.seekBar).visibility = View.INVISIBLE
         }
-        if (spicy.isChecked){
-            total +=1
-            spicy.text = yesText
-        } else {
-            total -= 1
-            spicy.text = noText
+        updateCost()
+    }
+
+    fun adjustQuantity(view: View) {
+        var quantity = findViewById<TextView>(R.id.textQuantity).text.toString().toInt()
+        if (view.id == R.id.btnMinus && quantity > 1) {
+            quantity -= 1
+        } else if (view.id == R.id.btnPlus){
+            quantity += 1
         }
-        updateCost(total)
+        findViewById<TextView>(R.id.textQuantity).text = "$quantity"
+        updateCost()
     }
 
 
