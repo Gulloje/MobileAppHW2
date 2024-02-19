@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        //not  needed
+
     }
 
     private fun updateCost () {
@@ -174,7 +174,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         findViewById<TextView>(R.id.textQuantity).text = 1.toString()
         updateCost()
     }
-    //send a string in and return a double value of the first dollar amount encountered in the string, very specific for how dollar amount is formatted in the layout
+    //send a string in and return a double value of the first dollar amount encountered in the string, specific for how dollar amount is formatted in the layout
     //https://kotlinandroid.org/kotlin/kotlin-iterate-over-words-in-string/#:~:text=To%20iterate%20over%20words%20in,to%20iterate%20over%20the%20words.
     private fun getDollarAmount(string: String): Double {
         try {
