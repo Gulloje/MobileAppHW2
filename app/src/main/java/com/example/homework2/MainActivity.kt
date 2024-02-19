@@ -151,8 +151,6 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     fun reset(view: View) {
         toppingCost = 0.0
-        //spicyCost = 0.0
-        //deliveryCost = 0.0
 
         findViewById<RadioButton>(R.id.plain).isChecked = true
         findViewById<ImageView>(R.id.imgPizza).setImageResource(R.drawable.plain)
@@ -163,10 +161,9 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             val i = findViewById<View>(id) //find the associated widget
             if (i is CheckBox) { //reset checkboxes
                 i.isChecked = false
-                //getCheckBoxes(i) would also reset price if added a max ( 0, toppingCost-getDollarAmount(view.text.toString(), or just reset topping cost
+                //getCheckBoxes(i) would also reset price if added a max ( 0, toppingCost-getDollarAmount(view.text.toString(), or just reset topping cost at start
             } else if (i is Switch) {
                 i.isChecked = false //reset switches
-
                 switches(i) //call this again so dont have to do visibility and text again
             }
 
