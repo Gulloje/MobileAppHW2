@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     fun pizzaTypeRadio(view: View) {
         val selectedPizzaImg = when (view.id) {
             R.id.bbq -> R.drawable.bbq_chicken
-            R.id.margherita -> R.drawable.margheritta //figure out how to spell margherita later
+            R.id.margherita -> R.drawable.margheritta
             R.id.hawaiian -> R.drawable.hawaiian
             R.id.pepperoni -> R.drawable.pepperoni
             else -> R.drawable.plain
@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private fun updateCost () {
         val quantity = findViewById<TextView>(R.id.textQuantity).text.toString().toDouble()
         var subTotal = (toppingCost + spicyCost+ sizeCost) * quantity
-        //.001 for tolerance so that never get a -0.00 as a cost
+        //.001 for tolerance so that never get a -0.00 as a cost, would happen when selecting and deselecting toppings to 0
         val tolerance = .001
         findViewById<TextView>(R.id.textSubtotal).text = "$" + String.format("%.2f", subTotal + tolerance)
         findViewById<TextView>(R.id.textTax).text = "$" + String.format("%.2f", subTotal*.065 + tolerance)
@@ -153,6 +153,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         toppingCost = 0.0
 
         findViewById<RadioButton>(R.id.plain).isChecked = true
+        //findViewById<RadioGroup>(R.id.radioGroup).clearCheck()
         findViewById<ImageView>(R.id.imgPizza).setImageResource(R.drawable.plain)
         findViewById<Spinner>(R.id.spinSize).setSelection(0)
         val resetGroup = listOf(R.id.checkBroccoli, R.id.checkMushrooms, R.id.checkOlives, R.id.checkOnion, R.id.checkTomate, R.id.checkSpinach, R.id.switchDelivery, R.id.switchSpicy);
@@ -172,6 +173,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         updateCost()
     }
     //send a string in and return a double value of the first dollar amount encountered in the string, specific for how dollar amount is formatted in the layout
+    //mostly just use for toppings
     //https://kotlinandroid.org/kotlin/kotlin-iterate-over-words-in-string/#:~:text=To%20iterate%20over%20words%20in,to%20iterate%20over%20the%20words.
     private fun getDollarAmount(string: String): Double {
         try {
@@ -181,6 +183,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             return amount[0].toDouble()
         } catch(e: IndexOutOfBoundsException) {
             //Toast.makeText(this, "No Dollar Value Found", Toast.LENGTH_SHORT).show()
+            //println("no dollar value found")
             return 0.0
         }
 
